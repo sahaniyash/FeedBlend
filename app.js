@@ -50,14 +50,7 @@ function editPost(postIndex) {
     }
 }
 
-// Function to delete a post
-function deletePost(postIndex) {
-    const confirmDelete = confirm("Are you sure you want to delete this post?");
-    if (confirmDelete) {
-        posts.splice(postIndex, 1);
-        displayPosts();
-    }
-}
+
 
 // Function to display posts in the feed
 function displayPosts() {
