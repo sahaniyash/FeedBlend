@@ -1,80 +1,60 @@
-// Sample data for posts
-let posts = [];
+import React, { useState } from 'react';
 
-// Function to create a new post
-function createPost() {
-    const postContent = document.getElementById("post-content").value;
-    if (postContent.trim() === "") {
-        alert("Please enter a post.");
-        return;
+const HomePage = () => {
+  const [selectedPage, setSelectedPage] = useState('home');
+
+  const renderContent = () => {
+    switch (selectedPage) {
+      case 'home':
+        return <h1>Welcome to the Home Page!</h1>;
+      case 'about':
+        return <h1>About Us</h1>;
+      case 'contact':
+        return <h1>Contact Us</h1>;
+      default:
+        return <h1>Welcome to the Home Page!</h1>;
     }
+  };
 
-    const post = {
-        content: postContent,
-        timestamp: new Date().toLocaleString(),
-    };
+  return (
+    <div>
+      <nav>
+        <ul style={styles.navList}>
+          <li style={styles.navItem}>
+            <button style={styles.button} onClick={() => setSelectedPage('home')}>Home</button>
+          </li>
+          <li style={styles.navItem}>
+            <button style={styles.button} onClick={() => setSelectedPage('about')}>About</button>
+          </li>
+          <li style={styles.navItem}>
+            <button style={styles.button} onClick={() => setSelectedPage('contact')}>Contact</button>
+          </li>
+        </ul>
+      </nav>
+      <div>
+        {renderContent()}
+      </div>
+    </div>
+  );
+};
 
-    posts.push(post);
-    document.getElementById("post-content").value = "";
+const styles = {
+  navList: {
+    display: 'flex',
+    listStyleType: 'none',
+    padding: 0,
+    backgroundColor: '#f0f0f0',
+  },
+  navItem: {
+    marginRight: '10px',
+  },
+  button: {
+    padding: '10px',
+    border: 'none',
+    backgroundColor: '#007BFF',
+    color: 'white',
+    cursor: 'pointer',
+  },
+};
 
-    // Refresh the post feed
-    displayPosts();
-}
-
-// Function to display posts in the feed
-function displayPosts() {
-    const postsContainer = document.getElementById("posts");
-    postsContainer.innerHTML = "";
-
-    for (let i = 0; i < posts.length; i++) {
-        const post = posts[i];
-        const postElement = document.createElement("div");
-        postElement.classList.add("post");
-        postElement.innerHTML = `
-            <p>${post.content}</p>
-            <small>${post.timestamp}</small>
-        `;
-        postsContainer.appendChild(postElement);
-    }
-}
-
-// Initial display of posts
-displayPosts();
-
-// Function to edit a post
-function editPost(postIndex) {
-    const newContent = prompt("Edit your post:", posts[postIndex].content);
-    if (newContent !== null && newContent.trim() !== "") {
-        posts[postIndex].content = newContent;
-        displayPosts();
-    }
-}
-
-// Function to delete a post
-function deletePost(postIndex) {
-    const confirmDelete = confirm("Are you sure you want to delete this post?");
-    if (confirmDelete) {
-        posts.splice(postIndex, 1);
-        displayPosts();
-    }
-}
-
-// Function to display posts in the feed
-function displayPosts() {
-    const postsContainer = document.getElementById("posts");
-    postsContainer.innerHTML = "";
-
-    for (let i = 0; i < posts.length; i++) {
-        const post = posts[i];
-        const postElement = document.createElement("div");
-        postElement.classList.add("post");
-        postElement.innerHTML = `
-            <p>${post.content}</p>
-            <small>${post.timestamp}</small>
-            <button onclick="editPost(${i})">Edit</button>
-            <button onclick="deletePost(${i})">Delete</button>
-        `;
-        postsContainer.appendChild(postElement);
-    }
-}
-
+export default HomePage;
