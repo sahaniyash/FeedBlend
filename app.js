@@ -1,20 +1,4 @@
-import React, { useState } from 'react';
 
-const HomePage = () => {
-  const [selectedPage, setSelectedPage] = useState('home');
-
-  const renderContent = () => {
-    switch (selectedPage) {
-      case 'home':
-        return <h1>Welcome to the Home Page!</h1>;
-      case 'about':
-        return <h1>About Us</h1>;
-      case 'contact':
-        return <h1>Contact Us</h1>;
-      default:
-        return <h1>Welcome to the Home Page!</h1>;
-    }
-  };
 
   return (
     <div>
